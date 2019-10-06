@@ -8,7 +8,7 @@ body { font-family: 'EB Garamond', serif; }
 .app-container { padding: 16px; }
 .search-results em { font-weight: bold; }
 .book-modal > button { width: 100%; }
-.search-results .mui-divider { margin: 14px 0; }
+.search-results .mui-divider { margin: 14px 0; } 
 
 .search-results {
   display: flex;

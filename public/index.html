@@ -17,20 +17,20 @@
     <div class="mui-panel">
       <div class="mui-textfield">
         <input v-model="searchTerm" type="text" v-on:keyup="onSearchInput()">
-        <label>Search</label>
+        <label>Arama</label>
       </div>
     </div>
 
     <!-- Search Metadata Card -->
     <div class="mui-panel">
-      <div class="mui--text-headline">{{ numHits }} Hits</div>
-      <div class="mui--text-subhead">Displaying Results {{ searchOffset }} - {{ searchOffset + 9 }}</div>
+      <div class="mui--text-headline">{{ numHits }} Eşleşme</div>
+      <div class="mui--text-subhead">Sonuçlar listeleniyor {{ searchOffset }} - {{ searchOffset + 9 }}</div>
     </div>
 
     <!-- Top Pagination Card -->
     <div class="mui-panel pagination-panel">
-        <button class="mui-btn mui-btn--flat" v-on:click="prevResultsPage()">Prev Page</button>
-        <button class="mui-btn mui-btn--flat" v-on:click="nextResultsPage()">Next Page</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="prevResultsPage()">Önceki</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="nextResultsPage()">Sonraki</button>
     </div>
 
     <!-- Search Results Card List -->
@@ -45,8 +45,8 @@
 
     <!-- Bottom Pagination Card -->
     <div class="mui-panel pagination-panel">
-        <button class="mui-btn mui-btn--flat" v-on:click="prevResultsPage()">Prev Page</button>
-        <button class="mui-btn mui-btn--flat" v-on:click="nextResultsPage()">Next Page</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="prevResultsPage()">Önceki</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="nextResultsPage()">Sonraki</button>
     </div>
 
     <!-- Book Paragraphs Modal Window -->
@@ -77,9 +77,9 @@
 
       <!-- Book Pagination Footer -->
       <div class="modal-footer">
-        <button class="mui-btn mui-btn--flat" v-on:click="prevBookPage()">Prev Page</button>
-        <button class="mui-btn mui-btn--flat" v-on:click="closeBookModal()">Close</button>
-        <button class="mui-btn mui-btn--flat" v-on:click="nextBookPage()">Next Page</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="prevBookPage()">Önceki</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="closeBookModal()">Kapat</button>
+        <button class="mui-btn mui-btn--flat" v-on:click="nextBookPage()">Sonraki</button>
       </div>
     </div>
 </div>

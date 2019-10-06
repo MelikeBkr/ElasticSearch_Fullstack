@@ -3,7 +3,7 @@ const vm = new Vue ({
   data () {
     return {
       baseUrl: 'http://localhost:3000', // API url
-      searchTerm: 'Hello World', // Default search term
+      searchTerm: 'Ara', // Default search term
       searchDebounce: null, // Timeout for search bar debounce
       searchResults: [], // Displayed search results
       numHits: null, // Total search results found
@@ -36,7 +36,7 @@ const vm = new Vue ({
     async nextResultsPage () {
       if (this.numHits > 10) {
         this.searchOffset += 10
-        if (this.searchOffset + 10 > this.numHits) { this.searchOffset = this.numHits - 10}
+        if (this.searchOffset + 5 > this.numHits) { this.searchOffset = this.numHits - 5}
         this.searchResults = await this.search()
         document.documentElement.scrollTop = 0
       }
@@ -63,12 +63,12 @@ const vm = new Vue ({
     /** Get next page (next 10 paragraphs) of selected book */
     async nextBookPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.paragraphs = await this.getParagraphs(this.selectedParagraph._source.title, this.bookOffset + 10)
+      this.paragraphs = await this.getParagraphs(this.selectedParagraph._source.title, this.bookOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected book */
     async prevBookPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.paragraphs = await this.getParagraphs(this.selectedParagraph._source.title, this.bookOffset - 10)
+      this.paragraphs = await this.getParagraphs(this.selectedParagraph._source.title, this.bookOffset - 5)
     },
     /** Display paragraphs from selected book in modal window */
     async showBookModal (searchHit) {
