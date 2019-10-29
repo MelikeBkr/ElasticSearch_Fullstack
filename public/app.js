@@ -5,7 +5,7 @@ const vm = new Vue ({
       baseUrl: 'http://localhost:3000', // API url
       searchTerm: 'Ara', // Default search term
       searchDebounce: null, // Timeout for search bar debounce
-      searchResults: [], // Displayed search results
+      searchResults: [], // Displayed book search results
       numHits: null, // Total search results found
       searchOffset: 0, // Search result pagination offset
 

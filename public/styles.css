@@ -8,10 +8,10 @@ body { font-family: 'EB Garamond', serif; }
 .app-container { padding: 16px; }
 .search-results em { font-weight: bold; }
 .book-modal > button { width: 100%; }
-.search-results .mui-divider { margin: 14px 0; } 
+.search-results .mui-divider { margin: 5px 0; } 
 
 .search-results {
-  display: flex;
+  display: table-cell;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -21,6 +21,8 @@ body { font-family: 'EB Garamond', serif; }
   flex-basis: 45%;
   box-sizing: border-box;
   cursor: pointer;
+  /* margin-left: 20px; */
+  margin: 10px 50px 0 0;
 }
 
 @media (max-width: 600px) {

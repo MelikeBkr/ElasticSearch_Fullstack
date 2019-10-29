@@ -43,6 +43,26 @@
       </div>
     </div>
 
+    <!-- Search Results Card List2 -->
+    <div class="search-results" ref="searchResults">
+      <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+        <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
+        <div class="mui-divider"></div>
+        <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
+        <div class="mui--text-body2">Location {{ hit._source.location }}</div>
+      </div>
+    </div>
+
+      <!-- Search Results Card List2 -->
+      <div class="search-results" ref="searchResults">
+        <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+          <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
+          <div class="mui-divider"></div>
+          <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
+          <div class="mui--text-body2">Location {{ hit._source.location }}</div>
+        </div>
+      </div>
+
     <!-- Bottom Pagination Card -->
     <div class="mui-panel pagination-panel">
         <button class="mui-btn mui-btn--flat" v-on:click="prevResultsPage()">Önceki</button>
