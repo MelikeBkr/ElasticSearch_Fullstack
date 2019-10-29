@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.muicss.com/mui-0.9.20/css/mui.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.1.1/vuetify.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Open+Sans" rel="stylesheet">
   <link href="styles.css" rel="stylesheet" />
 </head>
@@ -35,6 +36,7 @@
 
     <!-- Search Results Card List -->
     <div class="search-results" ref="searchResults">
+      <div class="mui--text-dark mui--text-headline">Kitap Sonuçları</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
@@ -45,6 +47,7 @@
 
     <!-- Search Results Card List2 -->
     <div class="search-results" ref="searchResults">
+      <div class="mui--text-dark mui--text-headline">Söz Sonuçları</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
@@ -55,6 +58,7 @@
 
       <!-- Search Results Card List3 -->
       <div class="search-results" ref="searchResults">
+        <div class="mui--text-dark mui--text-headline">İcraat Sonuçları</div> 
         <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
           <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
           <div class="mui-divider"></div>
