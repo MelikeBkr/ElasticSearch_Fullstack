@@ -1,0 +1,6 @@
+elastic search expire solution -> https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/
+* docker-compose build -> builds app
+* docker-compose up -d -> starts the application
+* docker exec gs-api "node" "server/connection.js" -> run our script within the container
+* docker-compose up -d --build -> run updated application (docker-compose build + docker-compose up -d)
+* docker exec gs-api "node" "server/load_data.js" -> run load data js

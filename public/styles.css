@@ -3,7 +3,6 @@ body { font-family: 'EB Garamond', serif; }
 .mui-textfield > input, .mui-btn, .mui--text-subhead, .mui-panel > .mui--text-headline {
   font-family: 'Open Sans', sans-serif;
 }
-
 .all-caps { text-transform: uppercase; }
 .app-container { padding: 16px; }
 .search-results em { font-weight: bold; }

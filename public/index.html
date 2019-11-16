@@ -13,7 +13,6 @@
 </head>
 <body>
 <div class="app-container" id="vue-instance">
-
     <!-- Search Bar Header -->
     <div class="mui-panel">
       <div class="mui-textfield">
@@ -34,9 +33,9 @@
         <button class="mui-btn mui-btn--flat" v-on:click="nextResultsPage()">Sonraki</button>
     </div>
 
-    <!-- Search Results Card List -->
+    <!-- icraatler -->
     <div class="search-results" ref="searchResults">
-      <div class="mui--text-dark mui--text-headline">Kitap Sonuçları</div> 
+      <div class="mui--text-dark mui--text-headline">İcraatler</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
@@ -45,9 +44,9 @@
       </div>
     </div>
 
-    <!-- Search Results Card List2 -->
+    <!-- söylev ve demeçler -->
     <div class="search-results" ref="searchResults">
-      <div class="mui--text-dark mui--text-headline">Söz Sonuçları</div> 
+      <div class="mui--text-dark mui--text-headline">Söylev ve Demeçler</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
@@ -56,9 +55,9 @@
       </div>
     </div>
 
-      <!-- Search Results Card List3 -->
+      <!-- yorumlar -->
       <div class="search-results" ref="searchResults">
-        <div class="mui--text-dark mui--text-headline">İcraat Sonuçları</div> 
+        <div class="mui--text-dark mui--text-headline">Yorumlar</div> 
         <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
           <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
           <div class="mui-divider"></div>
