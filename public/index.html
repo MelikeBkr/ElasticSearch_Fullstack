@@ -35,7 +35,7 @@
 
     <!-- icraatler -->
     <div class="search-results" ref="searchResults">
-      <div class="mui--text-dark mui--text-headline">İcraatler</div> 
+      <div class="mui--text-dark mui--text-headline">Kitaplar</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
@@ -46,7 +46,7 @@
 
     <!-- söylev ve demeçler -->
     <div class="search-results" ref="searchResults">
-      <div class="mui--text-dark mui--text-headline">Söylev ve Demeçler</div> 
+      <div class="mui--text-dark mui--text-headline">İcraat ve Söylevler</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>

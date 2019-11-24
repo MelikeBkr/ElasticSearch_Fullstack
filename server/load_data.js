@@ -15,18 +15,14 @@ function parseBookFile (filePath) {
   console.log(`Reading Book - ${title} wih date ${date}`)
 
   // Find metadata header and footer
-  const startOfBookMatch = book.match(/^\*{3}\s*ICERIK BASLANGIC.+\*{3}$/m)
-
-  const startOfBookIndex = startOfBookMatch.index + startOfBookMatch[0].length
-  const endOfBookIndex = book.match(/^\*{3}\s*ICERIK BITIS.+\*{3}$/m).index
-  //const relatedBooks = book.match(/^\*{2}\s*İLGİLİ KİTAPLAR.+\*{2}$/m)
-  var relatedBooks = "<b>İLGİLİ KİTAPLAR</b>"
+  const startOfActionsBookMatch = book.match(/^\*{3}\s*ICERIK BASLANGIC.+\*{3}$/m)
+  const startOfActionsBookIndex = startOfActionsBookMatch.index + startOfActionsBookMatch[0].length
+  const endOfActionsBookIndex = book.match(/^\*{3}\s*ICERIK BITIS.+\*{3}$/m).index
 
   // Clean book text and split into array of paragraphs
   const paragraphs = book
-    .slice(startOfBookIndex, endOfBookIndex) // Remove  header and footer
+    .slice(startOfActionsBookIndex, endOfActionsBookIndex) // Remove  header and footer
     .split(/\n\s+\n/g) // Split each paragraph into it's own array entry
-    //.replace((/^\*{2}\s*İLGİLİ KİTAPLAR.+\*{2}$/m), relatedBooks)
     .map(line => line.replace(/\r\n/g, ' ').trim()) // Remove paragraph line breaks and whitespace
     .map(line => line.replace(/_/g, ''))  //In order to avoid from italic font remove _
     .filter((line) => (line && line !== '')) // Remove empty lines
@@ -40,6 +36,7 @@ async function insertBookData (title, date, paragraphs) {
   let bulkOps = [] // Array to store bulk operations
 
   // Add an index operation for each section in the book
+  console.log(`Parsed ${paragraphs.length} Paragraphs\n`)
   for (let i = 0; i < paragraphs.length; i++) {
     // Describe action
     bulkOps.push({ index: { _index: esConnection.index, _type: esConnection.type } })
@@ -80,8 +77,6 @@ async function readAndInsertBooks () {
     for (let file of files) {
       console.log(`Reading File - ${file}`)
       const filePath = path.join('./books', file)
-      // const filePathIcraatler = path.join('./soylev_demec', file)
-      // const filePathIcraatler = path.join('./yorumlar', file)
 
       const { title, date, paragraphs } = parseBookFile(filePath)
       await insertBookData(title, date, paragraphs)
