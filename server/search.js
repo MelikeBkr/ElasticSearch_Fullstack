@@ -31,5 +31,23 @@ module.exports = {
     }
 
     return client.search({ index, type, body })
-  }
+  },
+
+    /** Get the specified range of paragraphs from a comment document */
+    getCommentParagraphs (bookTitle, startLocation, endLocation) {
+      const filter = [
+        { term: { title: bookTitle } },
+        { range: { location: { gte: startLocation, lte: endLocation } } }
+      ]
+  
+      const body = {
+        size: endLocation - startLocation,
+        sort: { location: 'asc' },
+        query: { bool: { filter } }
+      }
+  
+      return client.search({ index, type, body })
+    }
+
+  
 }

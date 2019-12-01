@@ -30,6 +30,7 @@ async function resetIndex () {
 
   await client.indices.create({ index })
   await putBookMapping()
+  await putCommentMapping()
 }
 
 /** Add book section schema mapping to ES */
@@ -39,6 +40,18 @@ async function putBookMapping () {
     author: { type: 'keyword' },
     location: { type: 'integer' },
     text: { type: 'text' }
+  }
+
+  return client.indices.putMapping({ index, type, body: { properties: schema } })
+}
+
+/** Add comment section schema mapping to ES */
+async function putCommentMapping () {
+  const schema = {
+    commentTitle: { type: 'keyword' },
+    commentAuthor: { type: 'keyword' },
+    commentLocation: { type: 'integer' },
+    commentText: { type: 'text' }
   }
 
   return client.indices.putMapping({ index, type, body: { properties: schema } })

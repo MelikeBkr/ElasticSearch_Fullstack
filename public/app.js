@@ -60,7 +60,7 @@ const vm = new Vue ({
         console.error(err)
       }
     },
-    /** Call the API to get current page of paragraphs */
+    /** Call the API to get current page of comment paragraphs */
     async getCommentParagraphs (bookTitle, offset) {
       try {
         this.bookOffset = offset
@@ -82,6 +82,18 @@ const vm = new Vue ({
       this.$refs.bookModal.scrollTop = 0
       this.paragraphs = await this.getParagraphs(this.selectedParagraph._source.title, this.bookOffset - 5)
     },
+
+    /** Get next page (next 10 paragraphs) of selected comment */
+    async nextCommentPage () {
+      this.$refs.bookModal.scrollTop = 0
+      this.paragraphs = await this.getCommentParagraphs(this.selectedParagraph._source.commentTitle, this.bookOffset + 5)
+    },
+    /** Get previous page (previous 10 paragraphs) of selected comment */
+    async prevCommentPage () {
+      this.$refs.bookModal.scrollTop = 0
+      this.paragraphs = await this.getCommentParagraphs(this.selectedParagraph._source.commentTitle, this.bookOffset - 5)
+    },
+
     /** Display paragraphs from selected book in modal window */
     async showBookModal (searchHit) {
       try {
@@ -97,7 +109,7 @@ const vm = new Vue ({
       try {
         document.body.style.overflow = 'hidden'
         this.selectedParagraph = searchHit
-        this.paragraphs = await this.getCommentParagraphs(searchHit._source.title, searchHit._source.location - 5)
+        this.paragraphs = await this.getCommentParagraphs(searchHit._source.commentTitle, searchHit._source.commentLocation - 5)
       } catch (err) {
         console.error(err)
       }
