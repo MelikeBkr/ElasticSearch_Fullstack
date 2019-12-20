@@ -30,7 +30,7 @@ async function resetIndex () {
 
   await client.indices.create({ index })
   await putBookMapping()
-  await putCommentMapping()
+  //await putCommentMapping()
 }
 
 /** Add book section schema mapping to ES */
@@ -45,17 +45,17 @@ async function putBookMapping () {
   return client.indices.putMapping({ index, type, body: { properties: schema } })
 }
 
-/** Add comment section schema mapping to ES */
-async function putCommentMapping () {
-  const schema = {
-    commentTitle: { type: 'keyword' },
-    commentAuthor: { type: 'keyword' },
-    commentLocation: { type: 'integer' },
-    commentText: { type: 'text' }
-  }
+// /** Add comment section schema mapping to ES */
+// async function putCommentMapping () {
+//   const schema = {
+//     commentTitle: { type: 'keyword' },
+//     commentAuthor: { type: 'keyword' },
+//     commentLocation: { type: 'integer' },
+//     commentText: { type: 'text' }
+//   }
 
-  return client.indices.putMapping({ index, type, body: { properties: schema } })
-}
+//   return client.indices.putMapping({ index, type, body: { properties: schema } })
+//}
 
 module.exports = {
   client, index, type, checkConnection, resetIndex

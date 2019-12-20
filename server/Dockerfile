@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install app dependencies
 RUN npm install
 
+# test melike
+RUN yarn global add @vue/cli -g
+
 # Copy sourcecode
 COPY . .
 

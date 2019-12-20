@@ -72,13 +72,13 @@ async function readAndInsertBooks () {
     let bookFiles = fs.readdirSync('./books').filter(file => file.slice(-4) === '.txt')
     console.log(`Found ${bookFiles.length} Book Files`)
 
-    // Read actions and orations directory
+    //Read actions and orations directory
     let actionOrationFiles = fs.readdirSync('./actions_orations').filter(file => file.slice(-4) === '.txt')
-    console.log(`Found ${actionOrationFiles.length} Book Files`)
+    console.log(`Found ${actionOrationFiles.length} Action and Oration Files`)
 
-    // Read comments directory
+    //Read comments directory
     let commentFiles = fs.readdirSync('./comments').filter(file => file.slice(-4) === '.txt')
-    console.log(`Found ${commentFiles.length} Book Files`)
+    console.log(`Found ${commentFiles.length} Comment Files`)
 
 
     // Read each book file, and index each paragraph in elasticsearch
@@ -111,5 +111,6 @@ async function readAndInsertBooks () {
     console.error(err)
   }
 }
-
 readAndInsertBooks()
+
+

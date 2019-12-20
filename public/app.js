@@ -11,11 +11,19 @@ const vm = new Vue ({
 
       selectedParagraph: null, // Selected paragraph object
       bookOffset: 0, // Offset for book paragraphs being displayed
-      paragraphs: [] // Paragraphs being displayed in book preview window
+      paragraphs: [], // Paragraphs being displayed in book preview window
+
+      searchCommentResults: [], // Displayed book search results
+      selectedCommentParagraph: null, // Selected paragraph object
+
+      commentParagraphs: [] // Paragraphs being displayed in book preview window
     }
   },
   async created () {
     this.searchResults = await this.search() // Search for default term
+    this.searchCommentResults = await this.searchComments() // Search for default term
+
+
   },
   methods: {
     /** Debounce search input by 100 ms */
@@ -24,6 +32,7 @@ const vm = new Vue ({
       this.searchDebounce = setTimeout(async () => {
         this.searchOffset = 0
         this.searchResults = await this.search()
+        this.searchCommentResults = await this.search()
       }, 100)
     },
     /** Call API to search for inputted term */
@@ -32,12 +41,14 @@ const vm = new Vue ({
       this.numHits = response.data.hits.total
       return response.data.hits.hits
     },
+    
     /** Get next page of search results */
     async nextResultsPage () {
       if (this.numHits > 10) {
         this.searchOffset += 10
         if (this.searchOffset + 5 > this.numHits) { this.searchOffset = this.numHits - 5}
         this.searchResults = await this.search()
+        this.searchCommentResults = await this.search()
         document.documentElement.scrollTop = 0
       }
     },
@@ -46,6 +57,7 @@ const vm = new Vue ({
       this.searchOffset -= 10
       if (this.searchOffset < 0) { this.searchOffset = 0 }
       this.searchResults = await this.search()
+      this.searchCommentResults = await this.search()
       document.documentElement.scrollTop = 0
     },
     /** Call the API to get current page of paragraphs */
@@ -86,12 +98,12 @@ const vm = new Vue ({
     /** Get next page (next 10 paragraphs) of selected comment */
     async nextCommentPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.paragraphs = await this.getCommentParagraphs(this.selectedParagraph._source.commentTitle, this.bookOffset + 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedParagraph._source.title, this.bookOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected comment */
     async prevCommentPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.paragraphs = await this.getCommentParagraphs(this.selectedParagraph._source.commentTitle, this.bookOffset - 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedParagraph._source.title, this.bookOffset - 5)
     },
 
     /** Display paragraphs from selected book in modal window */
@@ -105,11 +117,11 @@ const vm = new Vue ({
       }
     },
     /** Display paragraphs from selected book in modal window */
-    async showCommentsModal (searchHit) {
+    async showCommentsBookModal (searchHit) {
       try {
         document.body.style.overflow = 'hidden'
-        this.selectedParagraph = searchHit
-        this.paragraphs = await this.getCommentParagraphs(searchHit._source.commentTitle, searchHit._source.commentLocation - 5)
+        this.selectedCommentParagraph = searchHit
+        this.commentParagraphs = await this.getCommentParagraphs(searchHit._source.title, searchHit._source.commentLocation - 5)
       } catch (err) {
         console.error(err)
       }
@@ -117,7 +129,7 @@ const vm = new Vue ({
     /** Close the book detail modal */
     closeBookModal () {
       document.body.style.overflow = 'auto'
-      this.selectedParagraph = null
+      this.selectedCommentParagraph = null
     }
   }
 })

@@ -85,7 +85,7 @@ router.get('/commentParagraphs',
   }),
   async (ctx, next) => {
     const { bookTitle, start, end } = ctx.request.query
-    ctx.body = await search.getParagraphs(bookTitle, start, end)
+    ctx.body = await search.getCommentParagraphs(bookTitle, start, end)
   }
 )
 
