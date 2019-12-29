@@ -1,0 +1,14 @@
+Problem 1:   ERROR: Service 'api' failed to build: no matching manifest for windows/amd64
+Solution: bypassed it by running the Docker daemon in experimental mode:
+	- Right click Docker instance
+	- Go to Settings
+	- Daemon
+	- Advanced
+	- Set the "experimental": true	
+	- Restart Docker
+
+Problem 2:  Failed to load resource: Not Found Error 404 [http://localhost:8383/favicon.ico]
+Solution: add <link rel="shortcut icon" href=""> to html file
+
+Problem 3: Docker compose can not start. Service network not found after restart docker
+Solution: down all containers with "docker-compose down" command and up and build again.

@@ -5,12 +5,12 @@ services:
     container_name: gs-api
     build: .
     ports:
-      - "3000:3000" # Expose API port
+     # - "3000:3000" # Expose API port
       - "9229:9229" # Expose Node process debug port (disable in production)
     environment: # Set ENV vars
      - NODE_ENV=local
      - ES_HOST=elasticsearch
-     - PORT=3000
+     - PORT=9229
     volumes: # Attach local book data directory
       - ./books:/usr/src/app/books
 
