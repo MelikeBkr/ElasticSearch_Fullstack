@@ -12,3 +12,13 @@ Solution: add <link rel="shortcut icon" href=""> to html file
 
 Problem 3: Docker compose can not start. Service network not found after restart docker
 Solution: down all containers with "docker-compose down" command and up and build again.
+
+Problem 4: Error response from daemon: Container [ContainerID] is not running. 
+(The status of the container seen as "dead" when you run the command "docker ps -a")
+Solution: remove the relevant container with docker rm [OPTIONS] [CONTAINER_NAME]
+Options -> -f or --force and build and up the containers.
+
+Problem 5: If Vue DevTools cannot be started due to the development mode error;
+Solutioun: Change vue.min (which is for production) 
+from <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script> to
+vue (which is for development) <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>

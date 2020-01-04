@@ -2,7 +2,7 @@ const vm = new Vue ({
   el: '#vue-instance',
   data () {
     return {
-      baseUrl: 'http://localhost:9229', // API url
+      baseUrl: 'http://localhost:3000', // API url
       searchTerm: 'Ara', // Default search term
       searchDebounce: null, // Timeout for search bar debounce
       searchResults: [], // Displayed book search results
@@ -21,7 +21,7 @@ const vm = new Vue ({
   },
   async created () {
     this.searchResults = await this.search() // Search for default term
-    this.searchCommentResults = await this.searchComments() // Search for default term
+    this.searchCommentResults = await this.search() // Search for default term
 
 
   },
@@ -129,7 +129,7 @@ const vm = new Vue ({
     /** Close the book detail modal */
     closeBookModal () {
       document.body.style.overflow = 'auto'
-      this.selectedCommentParagraph = null
+      this.selectedParagraph = null
     }
   }
 })

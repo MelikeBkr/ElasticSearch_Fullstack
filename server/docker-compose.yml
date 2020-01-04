@@ -5,7 +5,7 @@ services:
     container_name: gs-api
     build: .
     ports:
-     # - "3000:3000" # Expose API port
+      - "3000:3000" # Expose API port
       - "9229:9229" # Expose Node process debug port (disable in production)
     environment: # Set ENV vars
      - NODE_ENV=local
@@ -19,6 +19,7 @@ services:
     image: nginx
     volumes: # Serve local "public" dir
       - ./public:/usr/share/nginx/html
+    # command: [nginx-debug, '-g', 'daemon off;']
     ports:
       - "8080:80" # Forward site to localhost:8080
 
