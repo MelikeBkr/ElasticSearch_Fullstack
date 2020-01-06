@@ -22,3 +22,6 @@ Problem 5: If Vue DevTools cannot be started due to the development mode error;
 Solutioun: Change vue.min (which is for production) 
 from <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script> to
 vue (which is for development) <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>
+
+Problem 6: If elastic search gives an error and steadilys print error logs;
+Solutioun: Run connection.js with following command docker exec gs-api "node" "server/connection.js" 

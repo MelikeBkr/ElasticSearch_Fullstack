@@ -10,7 +10,7 @@ services:
     environment: # Set ENV vars
      - NODE_ENV=local
      - ES_HOST=elasticsearch
-     - PORT=9229
+     - PORT=3000
     volumes: # Attach local book data directory
       - ./books:/usr/src/app/books
 

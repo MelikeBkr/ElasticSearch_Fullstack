@@ -9,8 +9,6 @@ function parseBookFile (filePath) {
 
   // Find book title 
   const title = book.match(/^Title:\s(.+)$/m)[1]
-  // const dateMatch = book.match(/^Date:\s(.+)$/m)
-  // const date = (!dateMatch || dateMatch[1].trim() === '') ? 'Bilinmeyen Tarih' : dateMatch[1]
 
   console.log(`Reading Book - ${title}`)
 
@@ -32,7 +30,7 @@ function parseBookFile (filePath) {
 }
 
 /** Bulk index the book data in ElasticSearch */
-async function insertBookData (title, paragraphs) {
+async function insertBookData (title, paragraphs, bookTypeParam) {
   let bulkOps = [] // Array to store bulk operations
 
   // Add an index operation for each section in the book
@@ -45,7 +43,8 @@ async function insertBookData (title, paragraphs) {
     bulkOps.push({
       title,
       location: i,
-      text: paragraphs[i]
+      text: paragraphs[i],
+      bookType : bookTypeParam
     })
 
     if (i > 0 && i % 500 === 0) { // Do bulk insert after every 500 paragraphs
@@ -87,7 +86,7 @@ async function readAndInsertBooks () {
       const bookFilePath = path.join('./books', book)
 
       const { title, paragraphs } = parseBookFile(bookFilePath)
-      await insertBookData(title, paragraphs)
+      await insertBookData(title, paragraphs, "Book")
     }
 
     // Read each actions and orations file, and index each paragraph in elasticsearch
@@ -96,7 +95,7 @@ async function readAndInsertBooks () {
       const actOrationFilePath = path.join('./actions_orations', actOration)
   
       const { title, paragraphs } = parseBookFile(actOrationFilePath)
-      await insertBookData(title, paragraphs)
+      await insertBookData(title, paragraphs, "actions_orations")
     }
 
     // Read each comment file, and index each paragraph in elasticsearch
@@ -105,7 +104,7 @@ async function readAndInsertBooks () {
       const commentFilePath = path.join('./comments', comment)
   
       const { title, paragraphs } = parseBookFile(commentFilePath)
-      await insertBookData(title, paragraphs)
+      await insertBookData(title, paragraphs, "comments")
     }
   } catch (err) {
     console.error(err)

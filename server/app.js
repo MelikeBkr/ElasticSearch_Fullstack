@@ -35,13 +35,14 @@ app.use(async (ctx, next) => {
 router.get('/search',
   validate({
     query: {
+      bookParam: joi.string().max(60).required(), 
       term: joi.string().max(60).required(),
       offset: joi.number().integer().min(0).default(0)
     }
   }),
   async (ctx, next) => {
-    const { term, offset } = ctx.request.query
-    ctx.body = await search.queryTerm(term, offset)
+    const { bookParam, term, offset } = ctx.request.query
+    ctx.body = await search.queryTerm(bookParam, term, offset)
   }
 )
 

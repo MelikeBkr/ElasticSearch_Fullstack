@@ -39,7 +39,8 @@ async function putBookMapping () {
     title: { type: 'keyword' },
     author: { type: 'keyword' },
     location: { type: 'integer' },
-    text: { type: 'text' }
+    text: { type: 'text' },
+    bookType: { type: 'keyword' }
   }
 
   return client.indices.putMapping({ index, type, body: { properties: schema } })

@@ -22,11 +22,11 @@
       </div>
     </div>
 
-    <!-- Search Metadata Card -->
+    <!-- Search Metadata Card 
     <div class="mui-panel">
       <div class="mui--text-headline">{{ numHits }} Eşleşme</div>
       <div class="mui--text-subhead">Sonuçlar listeleniyor {{ searchOffset }} - {{ searchOffset + 9 }}</div>
-    </div>
+    </div>-->
 
     <!-- Top Pagination Card -->
     <div class="mui-panel pagination-panel">
@@ -38,6 +38,7 @@
     <div class="search-results" ref="searchResults">
       <div class="mui--text-dark mui--text-headline">Kitaplar</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+        <div v-if="hit"></div>
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
         <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
@@ -49,6 +50,7 @@
     <div class="search-results" ref="searchResults">
       <div class="mui--text-dark mui--text-headline">İcraat ve Söylevler</div> 
       <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+        <div v-if="hit"></div>
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
         <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
@@ -60,6 +62,7 @@
       <div class="search-results" ref="searchCommentResults">
         <div class="mui--text-dark mui--text-headline">Yorumlar</div> 
         <div class="mui-panel" v-for="hit in searchCommentResults" v-on:click="showCommentsBookModal(hit)">
+          <div v-if="hit"></div>
           <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
           <div class="mui-divider"></div>
           <div class="mui--text-subhead">{{ hit._source.title }} - {{ hit._source.author }}</div>
