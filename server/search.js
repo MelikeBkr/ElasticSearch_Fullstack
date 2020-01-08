@@ -2,36 +2,11 @@ const { client, index, type } = require('./connection')
 
 module.exports = {
  
-  /** Query ES index for the provided term */
- /* queryTerm (term, offset = 0) {
-    const body = {
-      from: offset,
-      query: { match: {
-        text: {
-          query: term,
-          operator: 'and',
-          fuzziness: 'auto'
-        }
-      
-      } },
-      highlight: { fields: { text: {} } }
-    }
-
-    return client.search({ index, type, body })
-  },
-*/
     /** Query ES index for the provided term */
     queryTerm (bookParam, term, offset = 0) {
       const body = {
         from: offset,
         query: { 
-         
-     /*     "multi_match" : {
-            "query":     [ bookParam, term ],
-            "type":       "cross_fields",
-            "fields":     [ "bookType", "text" ],
-            "operator":   "and"
-            */
            "bool": {
             "must": [
               { "match": { "bookType":  bookParam }},
@@ -42,31 +17,10 @@ module.exports = {
                            fuzziness: 'auto'
                           }
                          } 
-
               }
             ]
 
           }	
-           
-
-
-/*	  "bool": {
-      "must": [
-        {
-          "match": {
-            "bookType": bookParam
-          }
-        },
-        {
-          "match": {
-            "text": term
-          }
-        }
-      ]
-    }
-
-        
-         }*/
         },
         highlight: { fields: { text: {} } }
       }
@@ -104,7 +58,22 @@ module.exports = {
       }
   
       return client.search({ index, type, body })
-    }
+    },
 
+    /** Get the specified range of paragraphs from a actions orations document */
+    getActionsOrationsParagraphs (bookTitle, startLocation, endLocation) {
+      const filter = [
+        { term: { title: bookTitle, bookType: "actions_orations" } },
+        { range: { location: { gte: startLocation, lte: endLocation } } }
+      ]
+    
+      const body = {
+        size: endLocation - startLocation,
+        sort: { location: 'asc' },
+        query: { bool: { filter } }
+      }
+    
+      return client.search({ index, type, body })
+    }
   
 }

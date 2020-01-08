@@ -47,9 +47,9 @@
     </div>
 
     <!-- icraat ve söylevler -->
-    <div class="search-results" ref="searchResults">
+    <div class="search-results" ref="searchActionsOrationsResults">
       <div class="mui--text-dark mui--text-headline">İcraat ve Söylevler</div> 
-      <div class="mui-panel" v-for="hit in searchResults" v-on:click="showBookModal(hit)">
+      <div class="mui-panel" v-for="hit in searchActionsOrationsResults" v-on:click="showActionsOrationsBookModal(hit)">
         <div v-if="hit"></div>
         <div class="mui--text-title" v-html="hit.highlight.text[0]"></div>
         <div class="mui-divider"></div>
