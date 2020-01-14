@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>Elastic Library</title>
-  <meta name="description" content="Literary Classic Search Engine.">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="description" content="Literary Classic Search Engine."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.muicss.com/mui-0.9.20/css/mui.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.1.1/vuetify.css" rel="stylesheet" type="text/css" />
-  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Open+Sans" rel="stylesheet"/>
   <link href="styles.css" rel="stylesheet" />
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" href=""/>
 </head>
 <body>
 <div class="app-container" id="vue-instance">
@@ -90,6 +90,20 @@
         <div class="mui-divider"></div>
         <br>
 
+    <!-- Comments Paragraphs Modal Window -->
+    <div v-if="selectedCommentParagraph" ref="commentModal" class="book-modal">
+      <div class="paragraphs-container">
+        <!-- Comment Section Metadata -->
+        <div class="title-row">
+          <div class="mui--text-display2 all-caps">{{ selectedCommentParagraph._source.title }}</div>
+          <div class="mui--text-display1">{{ selectedCommentParagraph._source.author }}</div>
+        </div>
+        <br>
+        <div class="mui-divider"></div>
+        <div class="mui--text-subhead locations-label">Locations {{ commentOffset - 5 }} to {{ commentOffset + 5 }}</div>
+        <div class="mui-divider"></div>
+        <br>
+
         <!-- Book Paragraphs -->
         <div v-for="paragraph in paragraphs">
           <div v-if="paragraph._source.location === selectedParagraph._source.location" class="mui--text-body2">
@@ -102,6 +116,18 @@
         </div>
       </div>
 
+      <!-- Comment Paragraphs -->
+      <div v-for="commentParagraph in commentParagraphs">
+        <div v-if="commentParagraph._source.location === selectedCommentParagraph._source.location" class="mui--text-body2">
+          <strong>{{ commentParagraph._source.text }}</strong>
+        </div>
+        <div v-else class="mui--text-body1">
+          {{ commentParagraph._source.text }}
+        </div>
+        <br>
+      </div>
+    </div>
+
       <!-- Book Pagination Footer -->
       <div class="modal-footer">
         <button class="mui-btn mui-btn--flat" v-on:click="prevBookPage()">Önceki</button>
@@ -109,6 +135,15 @@
         <button class="mui-btn mui-btn--flat" v-on:click="nextBookPage()">Sonraki</button>
       </div>
     </div>
+
+    <!-- Comment Pagination Footer -->
+    <div class="modal-footer">
+      <button class="mui-btn mui-btn--flat" v-on:click="prevCommentPage()">Önceki</button>
+      <button class="mui-btn mui-btn--flat" v-on:click="closeCommentsModal()">Kapat</button>
+      <button class="mui-btn mui-btn--flat" v-on:click="nextCommentPage()">Sonraki</button>
+    </div>
+  </div>
+  
 </div>
 <script src="https://cdn.muicss.com/mui-0.9.28/js/mui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js"></script>

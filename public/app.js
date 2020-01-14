@@ -11,6 +11,8 @@ const vm = new Vue ({
 
       selectedParagraph: null, // Selected paragraph object
       bookOffset: 0, // Offset for book paragraphs being displayed
+      actionsOrationsOffset: 0, // Offset for actions orations paragraphs being displayed
+      commentOffset:0, // Offset for comment paragraphs being displayed
       paragraphs: [], // Paragraphs being displayed in book preview window
       bookTypeAtt: "comments",
       searchCommentResults: [], // Displayed comment search results
@@ -94,9 +96,9 @@ const vm = new Vue ({
     async getCommentParagraphs (bookTitle, offset) {
       try {
         this.bookTypeAtt  = "comments"
-        this.bookOffset = offset
-        const start = this.bookOffset
-        const end = this.bookOffset + 10
+        this.commentOffset = offset
+        const start = this.commentOffset
+        const end = this.commentOffset + 10
         const response = await axios.get(`${this.baseUrl}/commentParagraphs`, { params: { bookTitle, start, end } })
         return response.data.hits.hits
       } catch (err) {
@@ -107,9 +109,9 @@ const vm = new Vue ({
     async getActionsOrationsParagraphs (bookTitle, offset) {
       try {
         this.bookTypeAtt  = "actions_orations"
-        this.bookOffset = offset
-        const start = this.bookOffset
-        const end = this.bookOffset + 10
+        this.actionsOrationsOffset = offset
+        const start = this.actionsOrationsOffset
+        const end = this.actionsOrationsOffset + 10
         const response = await axios.get(`${this.baseUrl}/actionsOrationsParagraphs`, { params: { bookTitle, start, end } })
         return response.data.hits.hits
       } catch (err) {
@@ -129,24 +131,24 @@ const vm = new Vue ({
 
     /** Get next page (next 10 paragraphs) of selected comment */
     async nextCommentPage () {
-      this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.bookOffset + 5)
+      this.$refs.commentModal.scrollTop = 0
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected comment */
     async prevCommentPage () {
-      this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.bookOffset - 5)
+      this.$refs.commentModal.scrollTop = 0
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentOffset - 5)
     },
 
     /** Get next page (next 10 paragraphs) of selected actions and orations */
     async nextActionsOrationsPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.bookOffset + 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionsOrationsOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected actions and orations */
     async prevActionsOrationsPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.bookOffset - 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionsOrationsOffset - 5)
     },
     /** Display paragraphs from selected book in modal window */
     async showBookModal (searchHit) {
