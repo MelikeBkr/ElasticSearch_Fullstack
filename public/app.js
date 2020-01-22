@@ -8,9 +8,14 @@ const vm = new Vue ({
       searchResults: [], // Displayed book search results
       numHits: null, // Total search results found
       searchOffset: 0, // Search result pagination offset
+      searchCommentsOffset: 0,
+      searchActionAndOrationOffset: 0,
 
       selectedParagraph: null, // Selected paragraph object
       bookOffset: 0, // Offset for book paragraphs being displayed
+      commentsOffset: 0,
+      actionAndOrationOffset: 0,
+
       actionsOrationsOffset: 0, // Offset for actions orations paragraphs being displayed
       commentOffset:0, // Offset for comment paragraphs being displayed
       paragraphs: [], // Paragraphs being displayed in book preview window
@@ -40,17 +45,38 @@ const vm = new Vue ({
         this.searchOffset = 0
         this.bookTypeAtt  = "Book"
         this.searchResults = await this.search()
+
+        this.searchCommentsOffset = 0;
         this.bookTypeAtt  = "comments"
         this.searchCommentResults = await this.search()
+
+        this.searchActionAndOrationOffset = 0;
         this.bookTypeAtt  = "actions_orations"
         this.searchActionsOrationsResults = await this.search()
       }, 100)
     },
     /** Call API to search for inputted term */
     async search () {
-      const response = await axios.get(`${this.baseUrl}/search`, { params: {bookParam: this.bookTypeAtt,  term: this.searchTerm,  offset: this.searchOffset } })
-      this.numHits = response.data.hits.total
-      return response.data.hits.hits
+
+      if(this.bookTypeAtt  == "Book")
+      {
+        var responseBook = await axios.get(`${this.baseUrl}/search`, { params: {bookParam: this.bookTypeAtt,  term: this.searchTerm,  offset: this.searchOffset } })
+      
+         return responseBook.data.hits.hits
+        }
+      else if (this.bookTypeAtt  == "comments")
+      {
+        var responseComments = await axios.get(`${this.baseUrl}/search`, { params: {bookParam: this.bookTypeAtt,  term: this.searchTerm,  offset: this.searchCommentsOffset } })
+        return responseComments.data.hits.hits
+      }
+      else if ( this.bookTypeAtt  == "actions_orations")
+      {
+        var responseActionOrations = await axios.get(`${this.baseUrl}/search`, { params: {bookParam: this.bookTypeAtt,  term: this.searchTerm,  offset: this.searchActionAndOrationOffset } })
+        return responseActionOrations.data.hits.hits
+      }
+
+      this.numHits = 0//response.data.hits.total
+      
     },
     
     /** Get next page of search results */
@@ -96,9 +122,9 @@ const vm = new Vue ({
     async getCommentParagraphs (bookTitle, offset) {
       try {
         this.bookTypeAtt  = "comments"
-        this.commentOffset = offset
-        const start = this.commentOffset
-        const end = this.commentOffset + 10
+        this.commentsOffset = offset
+        const start = this.commentsOffset
+        const end = this.commentsOffset + 10
         const response = await axios.get(`${this.baseUrl}/commentParagraphs`, { params: { bookTitle, start, end } })
         return response.data.hits.hits
       } catch (err) {
@@ -109,9 +135,9 @@ const vm = new Vue ({
     async getActionsOrationsParagraphs (bookTitle, offset) {
       try {
         this.bookTypeAtt  = "actions_orations"
-        this.actionsOrationsOffset = offset
-        const start = this.actionsOrationsOffset
-        const end = this.actionsOrationsOffset + 10
+        this.actionAndOrationOffset = offset
+        const start = this.actionAndOrationOffset
+        const end = this.actionAndOrationOffset + 10
         const response = await axios.get(`${this.baseUrl}/actionsOrationsParagraphs`, { params: { bookTitle, start, end } })
         return response.data.hits.hits
       } catch (err) {
@@ -132,23 +158,23 @@ const vm = new Vue ({
     /** Get next page (next 10 paragraphs) of selected comment */
     async nextCommentPage () {
       this.$refs.commentModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentOffset + 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentsOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected comment */
     async prevCommentPage () {
       this.$refs.commentModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentOffset - 5)
+      this.commentParagraphs = await this.getCommentParagraphs(this.selectedCommentParagraph._source.title, this.commentsOffset - 5)
     },
 
     /** Get next page (next 10 paragraphs) of selected actions and orations */
     async nextActionsOrationsPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionsOrationsOffset + 5)
+      this.actionsOrationsParagraphs = await this.getActionsOrationsParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionAndOrationOffset + 5)
     },
     /** Get previous page (previous 10 paragraphs) of selected actions and orations */
     async prevActionsOrationsPage () {
       this.$refs.bookModal.scrollTop = 0
-      this.commentParagraphs = await this.getCommentParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionsOrationsOffset - 5)
+      this.actionsOrationsParagraphs = await this.getActionsOrationsParagraphs(this.selectedActionsOrationsParagraph._source.title, this.actionAndOrationOffset - 5)
     },
     /** Display paragraphs from selected book in modal window */
     async showBookModal (searchHit) {

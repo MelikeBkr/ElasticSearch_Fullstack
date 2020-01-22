@@ -1,0 +1,6 @@
+- git add --a : add all changes into staged area
+- git commit -m "commit comments" : commit staged changes
+- git push origin [remote branch name] : push commited changes into remote branch
+- git checkout [shorthand sha id = commit id] : turn into the version with specified id.
+- git checkout [branch name] : checked out specific branch in order to work on that branch
+- git pull : get latest version on the relevant branch 

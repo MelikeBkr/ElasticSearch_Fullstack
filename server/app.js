@@ -90,6 +90,29 @@ router.get('/commentParagraphs',
   }
 )
 
+/**
+ * GET /commentParagraphs
+ * Get a range of paragraphs from the specified comment documents
+ * Query Params -
+ * bookTitle: string under 256 characters
+ * start: positive integer
+ * end: positive integer greater than start
+ */
+router.get('/actionsOrationsParagraphs',
+  validate({
+    query: {
+      bookTitle: joi.string().max(256).required(),
+      start: joi.number().integer().min(0).default(0),
+      end: joi.number().integer().greater(joi.ref('start')).default(10)
+    }
+  }),
+  async (ctx, next) => {
+    const { bookTitle, start, end } = ctx.request.query
+    ctx.body = await search.getActionsOrationsParagraphs(bookTitle, start, end)
+  }
+)
+
+
 const port = process.env.PORT || 3000
 
 app

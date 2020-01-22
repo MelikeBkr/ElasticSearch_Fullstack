@@ -31,7 +31,7 @@ module.exports = {
   /** Get the specified range of paragraphs from a book */
   getParagraphs (bookTitle, startLocation, endLocation) {
     const filter = [
-      { term: { title: bookTitle, bookType:"Book" } },
+      { term: { title: bookTitle } },
       { range: { location: { gte: startLocation, lte: endLocation } } }
     ]
 
@@ -47,7 +47,7 @@ module.exports = {
     /** Get the specified range of paragraphs from a comment document */
     getCommentParagraphs (bookTitle, startLocation, endLocation) {
       const filter = [
-        { term: { title: bookTitle, bookType: "comments" } },
+        { term: { title: bookTitle} },
         { range: { location: { gte: startLocation, lte: endLocation } } }
       ]
   
@@ -63,7 +63,7 @@ module.exports = {
     /** Get the specified range of paragraphs from a actions orations document */
     getActionsOrationsParagraphs (bookTitle, startLocation, endLocation) {
       const filter = [
-        { term: { title: bookTitle, bookType: "actions_orations" } },
+        { term: { title: bookTitle  } },
         { range: { location: { gte: startLocation, lte: endLocation } } }
       ]
     
